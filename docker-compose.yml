@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  db-postgres-evento:
+    image: postgres:alpine
+    ports:
+      - "5435:5432" # Porta do computador:porta do container
+    container_name: "db-postgres-evento"  # Esse nome é o que será usado para referenciar o container e nunca pode ser repetido entre os containers
+    restart: always # Sempre que o container for reiniciado, ele será iniciado automaticamente
+    volumes:
+      - ./banco-de-dados-evento:/var/lib/postgresql/data # O volume é criado automaticamente na primeira execução do container e é mantido mesmo que o container seja removido. O volume é criado no /data e depois é transferido para o /banco-de-dados-evento
+    environment:
+      - POSTGRES_USER=pguser
+      - POSTGRES_PASSWORD=pgpassword
+
+volumes:
+  banco-de-dados-evento: #inicia o volume de fato

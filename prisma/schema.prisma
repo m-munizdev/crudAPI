@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement()) 
+  //@id indica que se trata de uma chave primária
+  // @default(autoincrement()) indica que o valor será incrementado automaticamente
+  name String
+  email String @unique 
+  // @unique indica que o valor deve ser único
+  password String
+  phone String?
+  // '?' indica que o valor é opcional
+  createdAt DateTime @default(now()) //retorna a data e hora atual que o registro foi criado
+  // DateTime é um tipo de dado do prisma que representa data e hora
+  // @default(now()) indica que o valor será preenchido automaticamente
+  // now() é uma função do postgresql que retorna a data e hora atual
+  updatedAt DateTime @updatedAt //retorna a data e hora atual que o registro foi atualizado
+  // @updatedAt diz que o valor será preenchido automaticamente
+}
